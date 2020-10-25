@@ -2,10 +2,14 @@
 // Handle different translations differently to allow for extra flexibility
 
 
+var getSourceQueryParamValue = ({ detectSourceLanguage, from }, notLastParam = true) => (detectSourceLanguage
+  ? ''
+  : `source=${from}`);
+
 const google = {
   needkey: true,
-  fetch: ({ key, from, to, text }) => [
-    `https://translation.googleapis.com/language/translate/v2?key=${key}&format=text&source=${from}&target=${to}&q=${encodeURIComponent(text)}`,
+  fetch: ({ key, from, to, text, detectSourceLanguage }) => [
+    `https://translation.googleapis.com/language/translate/v2?key=${key}&format=text&${getSourceQueryParamValue({ from, detectSourceLanguage })}&target=${to}&q=${encodeURIComponent(text)}`,
     { method: 'POST' }
   ],
   parse: res => res.json().then(body => {

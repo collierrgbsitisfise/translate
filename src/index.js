@@ -20,6 +20,7 @@ const Translate = function(options = {}) {
     from: "en",
     to: "en",
     cache: undefined,
+    detectSourceLanguage: false,
     language: language,
     engines: engines,
     engine: "google",

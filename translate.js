@@ -315,18 +315,18 @@ var language = name => {
   return name;
 };
 
+// Translation engines
+// Handle different translations differently to allow for extra flexibility
+
+
 var getSourceQueryParamValue = ({ detectSourceLanguage, from }, notLastParam = true) => (detectSourceLanguage
   ? ''
   : `source=${from}`);
 
-  // Translation engines
-// Handle different translations differently to allow for extra flexibility
-
-
 const google = {
   needkey: true,
   fetch: ({ key, from, to, text, detectSourceLanguage }) => [
-    `https://translation.googleapis.com/language/translate/v2?key=${key}&format=text&${getSourceQueryParamValue({ detectSourceLanguage, from })}&target=${to}&q=${encodeURIComponent(text)}`,
+    `https://translation.googleapis.com/language/translate/v2?key=${key}&format=text&${getSourceQueryParamValue({ from, detectSourceLanguage })}&target=${to}&q=${encodeURIComponent(text)}`,
     { method: 'POST' }
   ],
   parse: res => res.json().then(body => {
@@ -566,8 +566,8 @@ const Translate = function(options = {}) {
   const defaults = {
     from: "en",
     to: "en",
-    detectSourceLanguage: false,
     cache: undefined,
+    detectSourceLanguage: false,
     language: language,
     engines: engines,
     engine: "google",
