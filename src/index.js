@@ -31,7 +31,7 @@ const Translate = function(options = {}) {
     // Note: not all of those *should* be documented since some are internal only
     if (typeof opts === "string") opts = { to: opts };
     opts.text = text;
-    opts.from = language(opts.from || translate.from);
+    opts.from = opts.detectSourceLanguage ? false : language(opts.from || translate.from);
     opts.to = language(opts.to || translate.to);
     opts.cache = opts.cache || translate.cache;
     opts.engines = opts.engines || {};
