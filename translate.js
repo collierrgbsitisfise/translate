@@ -564,7 +564,6 @@ const Translate = function(options = {}) {
   }
 
   const defaults = {
-    from: "en",
     to: "en",
     cache: undefined,
     detectSourceLanguage: false,
@@ -622,6 +621,7 @@ const Translate = function(options = {}) {
     }
 
     const fetchOpts = engine.fetch(opts);
+    console.log('fetchOpts : ', fetchOpts);
     return fetch(...fetchOpts)
       .then(engine.parse)
       .then(translated => exp$2.put(opts.id, translated, opts.cache));
